@@ -1,7 +1,7 @@
 import Course from "./Course";
 
 const App = () => {
-  const course = {
+  const courses = {
     name: "Half Stack application development",
     parts: [
       {
@@ -21,7 +21,7 @@ const App = () => {
 
   return (
     <div>
-      <Course course={course} />
+      <Course courses={courses} />
     </div>
   );
 };
