@@ -10,6 +10,12 @@ const App = () => {
 
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
+  const [newFilter, setFilter] = useState("");
+
+  const handleFilterChange = (event) => {
+    console.log("filter event: ", event);
+    setFilter(event.target.value);
+  };
 
   const handleNameChange = (event) => {
     console.log("name event: ", event);
@@ -23,6 +29,11 @@ const App = () => {
 
   const addPerson = (event) => {
     event.preventDefault();
+    console.log("event: ", event);
+    console.log("new name: ", newName);
+    console.log("new number: ", newNumber);
+    if (newName === "" || newNumber === "")
+      return alert("All fields must be completed");
     if (persons.find((person) => person.name === newName))
       return alert(`${newName} is already added to phonebook`);
     setPersons(persons.concat({ name: newName, number: newNumber }));
@@ -35,7 +46,8 @@ const App = () => {
         <form>
           <div>
             filter shown with
-            <input />
+            <input value={newFilter} onChange={handleFilterChange} />
+            <div>debug: {newFilter}</div>
           </div>
         </form>
       </div>
@@ -57,11 +69,15 @@ const App = () => {
       </form>
       <h2>Numbers</h2>
       <ul>
-        {persons.map((person) => (
-          <li key={person.name}>
-            {person.name} {person.number}
-          </li>
-        ))}
+        {persons
+          .filter((person) =>
+            person.name.toLowerCase().includes(newFilter.toLowerCase())
+          )
+          .map((filteredNames) => (
+            <li key={filteredNames.name}>
+              {filteredNames.name} {filteredNames.number}
+            </li>
+          ))}
       </ul>
     </div>
   );
