@@ -1,5 +1,15 @@
+import axios from "axios";
 import ReactDOM from "react-dom";
 import App from "./App";
+
+const promise = axios.get("http://localhost:3001/notes").then((response) => {
+  const notes = response.data;
+  console.log("notes: ", notes);
+});
+const promise2 = axios.get("http://localhost:3001/foobar");
+
+console.log("promise: ", promise);
+console.log("promise2: ", promise2);
 
 const notes = [
   {
