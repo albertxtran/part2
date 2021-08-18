@@ -3,6 +3,7 @@
 # dependencies
 /courseinfo/node_modules
 /phonebook/node_modules
+/data-for-countries/node_modules
 /course-examples/node_modules
 
 /.pnp
