@@ -8,10 +8,7 @@ const Country = ({ country }) => {
   useEffect(() => {
     axios
       .get(
-        "http://api.weatherstack.com/current?access_key=" +
-          api +
-          "&query=" +
-          country.name
+        `http://api.weatherstack.com/current?access_key=${api}&query=${country.name}`
       )
       .then((response) => {
         setWeather(response.data);
