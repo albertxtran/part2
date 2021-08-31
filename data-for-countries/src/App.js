@@ -13,7 +13,6 @@ const App = () => {
           country.name.toLowerCase().includes(newFilter.toLowerCase())
         )
       : countries;
-  console.log("filtered: ", filteredCountries.length);
 
   useEffect(() => {
     axios

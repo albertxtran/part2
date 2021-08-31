@@ -3,22 +3,20 @@ import axios from "axios";
 
 const Country = ({ country }) => {
   const [weather, setWeather] = useState();
-  const lat = country.latlng[0];
-  const lng = country.latlng[1];
+  const api = process.env.REACT_APP_API_KEY;
 
   useEffect(() => {
     axios
       .get(
-        "https://fcc-weather-api.glitch.me/api/current?lat=" +
-          lat +
-          "&lon=" +
-          lng
+        "http://api.weatherstack.com/current?access_key=" +
+          api +
+          "&query=" +
+          country.name
       )
       .then((response) => {
-        console.log("response: ", response);
         setWeather(response.data);
       });
-  }, []);
+  }, [api, country.name]);
 
   return (
     <div>
@@ -33,13 +31,22 @@ const Country = ({ country }) => {
       </ul>
       <img src={country.flag} alt="new" style={{ width: 150, height: 150 }} />
       <h2>Weather in {country.name}</h2>
-      <div>Temperature: {weather.main.temp}</div>
-      <img
-        src={weather.weather[0].icon}
-        alt="new"
-        style={{ width: 100, height: 100 }}
-      />
-      <div>Wind: {weather.wind.speed} mph</div>
+      {weather ? (
+        <div>
+          <div>Temperature: {weather.current.temperature} C</div>
+          <img
+            src={weather.current.weather_icons[0]}
+            alt="new"
+            style={{ width: 100, height: 100 }}
+          />
+          <div>
+            Wind: {weather.current.wind_speed}
+            mph direction {weather.current.wind_dir}
+          </div>
+        </div>
+      ) : (
+        <div>loading</div>
+      )}
     </div>
   );
 };
