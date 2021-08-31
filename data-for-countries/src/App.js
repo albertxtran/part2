@@ -25,6 +25,11 @@ const App = () => {
     setFilter(value);
     return;
   };
+
+  const showCountry = (selected) => {
+    setFilter(selected.name);
+    return;
+  };
   return (
     <div>
       <h1>Hello, Worlds</h1>
@@ -37,7 +42,10 @@ const App = () => {
           filteredCountries.length <= 10 ? (
             <ul>
               {filteredCountries.map((country, i) => (
-                <li key={country.numericCode}>{country.name}</li>
+                <div>
+                  <li key={country.numericCode}>{country.name}</li>
+                  <button onClick={() => showCountry(country)}>show</button>
+                </div>
               ))}
             </ul>
           ) : (
