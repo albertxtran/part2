@@ -46,6 +46,7 @@ const App = () => {
                 key={filteredNames.name}
                 name={filteredNames.name}
                 number={filteredNames.number}
+                personId={filteredNames.id}
               />
             ))}
         </ul>
