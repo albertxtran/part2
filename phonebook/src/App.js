@@ -20,10 +20,30 @@ const App = () => {
   };
 
   const addPerson = (value) => {
-    if (persons.find((person) => person.name === value.name))
-      return alert(`${value.name} is already added to phonebook`);
+    let dupPerson = persons.find((person) => person.name === value.name);
+    if (dupPerson) {
+      if (
+        window.confirm(
+          `${value.name} is already added to phonebook, repalce the old number with a new one?`
+        )
+      ) {
+        personServices
+          .update(dupPerson.id, {
+            ...dupPerson,
+            number: value.number,
+          })
+          .then((response) => {
+            const updatePersons = persons;
+            const idx = updatePersons.findIndex(
+              (person) => person.name === response.name
+            );
+            updatePersons[idx] = response;
+            setPersons(updatePersons);
+          });
+        return;
+      }
+    }
     personServices.create(value).then((response) => {
-      console.log("add person response: ", response);
       setPersons(persons.concat(response));
     });
   };

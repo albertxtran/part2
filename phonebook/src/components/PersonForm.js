@@ -10,7 +10,6 @@ const PersonForm = (props) => {
   };
 
   const handleNumberChange = (event) => {
-    console.log("number event: ", event);
     setNewNumber(event.target.value);
   };
 
