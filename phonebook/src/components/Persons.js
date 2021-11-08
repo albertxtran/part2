@@ -1,13 +1,14 @@
 import personServices from "../services/persons";
 
-const deletePerson = (person) => {
-  console.log("person: ", person);
-  if (window.confirm(`Delete ${person.name}?`)) {
-    personServices.deletePerson(person.personId);
-  }
-};
-
 const Persons = (props) => {
+  const deletePerson = (person) => {
+    console.log("person: ", person);
+    if (window.confirm(`Delete ${person.name}?`)) {
+      personServices.deletePerson(person.personId);
+      props.updatePersons(person, person.personId);
+    }
+  };
+
   return (
     <div>
       <li>

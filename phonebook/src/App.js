@@ -21,6 +21,22 @@ const App = () => {
     setFilter(value);
   };
 
+  const handlePersonsChange = (value, id = null) => {
+    console.log("handle persons value: ", value);
+    if (id) {
+      console.log("id found");
+      const newPersons = persons.filter((person) => person.name !== value.name);
+      return setPersons(newPersons);
+    }
+    setPersons((prevState) => {
+      return value;
+    });
+  };
+
+  const handleNotificationChange = (value) => {
+    setNotification(value);
+  };
+
   const addPerson = (value) => {
     let dupPerson = persons.find((person) => person.name === value.name);
     if (dupPerson) {
@@ -40,14 +56,17 @@ const App = () => {
               (person) => person.name === response.name
             );
             updatePersons[idx] = response;
-            setPersons(updatePersons);
+            handlePersonsChange(updatePersons);
           });
         return;
       }
     }
     personServices.create(value).then((response) => {
-      setPersons(persons.concat(response));
-      setNotification({ message: `Added ${value.name}`, error: false });
+      handlePersonsChange(persons.concat(response));
+      handleNotificationChange({
+        message: `Added ${value.name}`,
+        error: false,
+      });
     });
   };
 
@@ -71,6 +90,7 @@ const App = () => {
                 name={filteredNames.name}
                 number={filteredNames.number}
                 personId={filteredNames.id}
+                updatePersons={handlePersonsChange}
               />
             ))}
         </ul>

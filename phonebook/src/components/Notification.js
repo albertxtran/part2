@@ -5,7 +5,13 @@ const Notification = ({ message, error }) => {
     return null;
   }
 
-  return <div className={error ? "error" : "success"}>{message}</div>;
+  return (
+    <div>
+      {message !== undefined && (
+        <div className={error ? "error" : "success"}>{message}</div>
+      )}
+    </div>
+  );
 };
 
 export default Notification;
